@@ -36,7 +36,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
@@ -64,26 +63,22 @@ import com.example.ui.theme.EmberTheme
 fun GlassCard(
     modifier: Modifier = Modifier,
     shape: Shape = RoundedCornerShape(24.dp),
-    containerColor: Color = EmberTheme.palette.glassSurface.copy(alpha = if (EmberTheme.palette.isOledBlack) 0.84f else 0.72f),
+    containerColor: Color = EmberTheme.palette.glassSurface.copy(alpha = if (EmberTheme.palette.isOledBlack) 0.88f else 0.84f),
     borderColor: Color = EmberTheme.palette.glassBorderOuter,
     innerHighlightColor: Color = EmberTheme.palette.glassBorderInner.copy(alpha = if (EmberTheme.palette.isOledBlack) 0.55f else 0.96f),
     contentPadding: Dp = 16.dp,
     content: @Composable BoxScope.() -> Unit,
 ) {
-    Surface(
+    Box(
         modifier = modifier
+            .clip(shape)
+            .background(containerColor)
             .border(width = 1.3.dp, color = borderColor, shape = shape)
             .padding(1.dp)
-            .border(width = 1.dp, color = innerHighlightColor, shape = shape),
-        shape = shape,
-        color = containerColor,
-        shadowElevation = if (EmberTheme.palette.isOledBlack) 0.dp else 3.dp,
-    ) {
-        Box(
-            modifier = Modifier.padding(contentPadding),
-            content = content,
-        )
-    }
+            .border(width = 1.dp, color = innerHighlightColor, shape = shape)
+            .padding(contentPadding),
+        content = content,
+    )
 }
 
 data class SegmentedOption<T>(
@@ -102,7 +97,7 @@ fun <T> SlidingGlassSegmentedControl(
     onSelect: (T) -> Unit,
     modifier: Modifier = Modifier,
     activeColor: Color = EmberTheme.palette.signalCrimson,
-    activeTintColor: Color = EmberTheme.palette.glassSurface.copy(alpha = if (EmberTheme.palette.isOledBlack) 0.96f else 0.94f),
+    activeTintColor: Color = EmberTheme.palette.glassSurface.copy(alpha = if (EmberTheme.palette.isOledBlack) 0.96f else 0.95f),
 ) {
     val palette = EmberTheme.palette
     val selectedIndex = options.indexOfFirst { it.value == selectedValue }.coerceAtLeast(0)
@@ -113,7 +108,7 @@ fun <T> SlidingGlassSegmentedControl(
         modifier = modifier
             .fillMaxWidth()
             .clip(trackShape)
-            .background(palette.recessedSurface.copy(alpha = if (palette.isOledBlack) 0.92f else 0.68f))
+            .background(palette.recessedSurface.copy(alpha = if (palette.isOledBlack) 0.92f else 0.76f))
             .border(1.2.dp, palette.glassBorderOuter, trackShape)
             .padding(4.dp),
     ) {
@@ -128,18 +123,17 @@ fun <T> SlidingGlassSegmentedControl(
             label = "slidingPillOffset",
         )
 
-        Surface(
+        Box(
             modifier = Modifier
                 .offset(x = animatedOffsetX)
                 .width(segmentWidth)
                 .height(56.dp)
-                .border(1.4.dp, activeColor.copy(alpha = 0.80f), pillShape)
+                .clip(pillShape)
+                .background(activeTintColor)
+                .border(1.5.dp, activeColor.copy(alpha = 0.85f), pillShape)
                 .padding(1.dp)
                 .border(1.dp, palette.glassBorderInner.copy(alpha = if (palette.isOledBlack) 0.45f else 1f), pillShape),
-            shape = pillShape,
-            color = activeTintColor,
-            shadowElevation = if (palette.isOledBlack) 0.dp else 2.dp,
-        ) {}
+        )
 
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -377,7 +371,7 @@ fun GlassIconButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     tint: Color = EmberTheme.palette.inkPrimary,
-    containerColor: Color = EmberTheme.palette.glassSurface.copy(alpha = if (EmberTheme.palette.isOledBlack) 0.85f else 0.78f),
+    containerColor: Color = EmberTheme.palette.glassSurface.copy(alpha = if (EmberTheme.palette.isOledBlack) 0.88f else 0.84f),
     borderColor: Color = EmberTheme.palette.glassBorderOuter,
     tag: String? = null,
 ) {
@@ -391,32 +385,29 @@ fun GlassIconButton(
     )
     val shape = RoundedCornerShape(15.dp)
 
-    Surface(
+    Box(
         modifier = modifier
             .then(if (tag != null) Modifier.testTag(tag) else Modifier)
             .scale(scale)
             .size(48.dp)
+            .clip(shape)
+            .background(containerColor)
             .border(1.2.dp, borderColor, shape)
             .padding(1.dp)
-            .border(1.dp, palette.glassBorderInner.copy(alpha = if (palette.isOledBlack) 0.45f else 1f), shape)
-            .clip(shape)
+            .border(1.dp, palette.glassBorderInner.copy(alpha = if (palette.isOledBlack) 0.45f else 1f), RoundedCornerShape(14.dp))
             .clickable(
                 interactionSource = interactionSource,
                 indication = ripple(color = tint),
                 onClick = onClick,
             ),
-        shape = shape,
-        color = containerColor,
-        shadowElevation = if (palette.isOledBlack) 0.dp else 2.dp,
+        contentAlignment = Alignment.Center,
     ) {
-        Box(contentAlignment = Alignment.Center) {
-            Icon(
-                imageVector = icon,
-                contentDescription = contentDescription,
-                tint = tint,
-                modifier = Modifier.size(21.dp),
-            )
-        }
+        Icon(
+            imageVector = icon,
+            contentDescription = contentDescription,
+            tint = tint,
+            modifier = Modifier.size(21.dp),
+        )
     }
 }
 
@@ -439,7 +430,7 @@ fun PrimaryGlassWarmButton(
     )
 
     val bgColor by animateColorAsState(
-        targetValue = if (isHeating) palette.signalCrimson.copy(alpha = 0.94f) else palette.glassSurface.copy(alpha = if (palette.isOledBlack) 0.88f else 0.84f),
+        targetValue = if (isHeating) palette.signalCrimson.copy(alpha = 0.96f) else palette.glassSurface.copy(alpha = if (palette.isOledBlack) 0.90f else 0.88f),
         animationSpec = tween(260),
         label = "primaryBg",
     )
@@ -507,11 +498,13 @@ fun PrimaryGlassWarmButton(
             }
         }
 
-        Surface(
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .scale(scale)
                 .defaultMinSize(minHeight = 66.dp)
+                .clip(shape)
+                .background(bgColor)
                 .border(
                     width = 1.8.dp,
                     color = borderColor,
@@ -521,17 +514,14 @@ fun PrimaryGlassWarmButton(
                 .border(
                     width = 1.dp,
                     color = if (isHeating) Color.White.copy(alpha = 0.40f) else palette.glassBorderInner.copy(alpha = if (palette.isOledBlack) 0.45f else 1f),
-                    shape = shape,
+                    shape = RoundedCornerShape(21.dp),
                 )
-                .clip(shape)
                 .clickable(
                     interactionSource = interactionSource,
                     indication = ripple(color = if (isHeating) Color.White else palette.iceCobalt),
                     onClick = onClick,
                 ),
-            shape = shape,
-            color = bgColor,
-            shadowElevation = if (palette.isOledBlack) 0.dp else if (isHeating) 5.dp else 3.dp,
+            contentAlignment = Alignment.Center,
         ) {
             Row(
                 modifier = Modifier

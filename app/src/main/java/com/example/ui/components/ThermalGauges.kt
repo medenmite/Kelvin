@@ -217,6 +217,14 @@ fun HeroThermalDashboardCard(
                 }
 
                 // Right Column: Thermal Zone Badge + Interactive Cutoff Gate Pill + Margin
+                val zoneLabel = when {
+                    telemetry.batteryTempC >= maxTempCutoffC -> "CUTOFF LIMIT"
+                    telemetry.batteryTempC >= maxTempCutoffC - 2.0f -> "HOT ZONE"
+                    telemetry.batteryTempC >= 36.0f -> "WARM ZONE"
+                    telemetry.batteryTempC >= 30.0f -> "NOMINAL ZONE"
+                    else -> "COOL ZONE"
+                }
+
                 Column(
                     horizontalAlignment = Alignment.End,
                     verticalArrangement = Arrangement.spacedBy(6.dp),
@@ -237,7 +245,7 @@ fun HeroThermalDashboardCard(
                             )
                             Spacer(modifier = Modifier.width(5.dp))
                             Text(
-                                text = "${telemetry.thermalLevel.label.uppercase()} ZONE",
+                                text = zoneLabel,
                                 style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
                                 color = activeZoneColor,
                             )
