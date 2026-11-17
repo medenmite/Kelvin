@@ -339,8 +339,18 @@ private fun TopStatusBar(
                 Icon(
                     imageVector = Icons.Filled.LocalFireDepartment,
                     contentDescription = null,
-                    tint = if (uiState.isHeating) palette.signalCrimson else palette.iceCobalt,
-                    modifier = Modifier.size(24.dp),
+                    tint = palette.signalCrimson,
+                    modifier = Modifier
+                        .size(24.dp)
+                        .align(Alignment.Center),
+                )
+                Box(
+                    modifier = Modifier
+                        .align(Alignment.TopEnd)
+                        .padding(top = 6.dp, end = 6.dp)
+                        .size(9.dp)
+                        .clip(CircleShape)
+                        .border(2.dp, if (uiState.isHeating) palette.signalCrimson else palette.iceCobalt, CircleShape),
                 )
             }
             Spacer(modifier = Modifier.width(12.dp))

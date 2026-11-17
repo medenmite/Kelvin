@@ -3,6 +3,6 @@
     <item
         android:width="66dp"
         android:height="66dp"
-        android:drawable="@drawable/embercore_icon_fg_1794905889492"
+        android:drawable="@drawable/kelvin_icon_fg_1794944696622"
         android:gravity="center" />
 </layer-list>
