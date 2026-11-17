@@ -1,0 +1,41 @@
+<resources>
+    <string name="app_name">Kelvin</string>
+    <string name="app_subtitle">THERMAL HAND WARMER</string>
+
+    <string name="status_idle">STANDBY</string>
+    <string name="status_warming">WARMING</string>
+    <string name="status_throttled">AUTO-STEPPED DOWN</string>
+    <string name="status_safety_trip">SAFETY COOLDOWN</string>
+    <string name="status_completed">TIMER COMPLETE</string>
+
+    <string name="section_telemetry">LIVE TELEMETRY</string>
+    <string name="section_workload">COMPUTE TARGET</string>
+    <string name="section_strength">HEATING STRENGTH</string>
+    <string name="section_timer">SESSION TIMER</string>
+    <string name="section_execution">EXECUTION MODE</string>
+
+    <string name="action_start_warming">Start Warming</string>
+    <string name="action_stop_warming">Stop Warming</string>
+    <string name="action_pocket_dimmer">Pocket Dimmer</string>
+    <string name="action_safety_settings">Safety Limits</string>
+    <string name="action_dismiss">Dismiss</string>
+    <string name="action_custom_timer">Custom</string>
+
+    <string name="safety_disclaimer">Safety notice: Do not cover the device under thick bedding or leave unattended. Sustained heat may accelerate battery wear.</string>
+    <string name="safety_sheet_title">Thermal &amp; Battery Guardrails</string>
+    <string name="safety_max_temp_label">Max Battery Temp Cutoff</string>
+    <string name="safety_min_batt_label">Min Battery Reserve</string>
+    <string name="safety_auto_step_label">Auto Step-Down Near Cutoff</string>
+    <string name="safety_auto_step_desc">Automatically lowers strength by one level within 1.5°C of your cutoff before hard-stopping.</string>
+    <string name="safety_unit_label">Temperature Unit</string>
+
+    <string name="pocket_dimmer_hint">Hold 1.2s to unlock screen</string>
+    <string name="pocket_dimmer_stop">Hold to stop heating</string>
+    <string name="notification_channel_name">Active Warming Session</string>
+    <string name="notification_channel_desc">Shows live device temperature, battery reserve, and quick stop controls while heating in background.</string>
+    <string name="notification_stop_action">Stop</string>
+
+    <string name="cd_safety_settings">Open thermal and battery safety settings</string>
+    <string name="cd_toggle_unit">Toggle Celsius or Fahrenheit</string>
+    <string name="cd_pocket_dimmer">Enable OLED pocket dimmer lock</string>
+</resources>

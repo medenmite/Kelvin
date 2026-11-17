@@ -1,0 +1,6 @@
+{
+  "name": "Kelvin",
+  "description": "Precision hand warmer and hardware thermal stress utility with configurable CPU/GPU workloads, live temperature and battery telemetry gauges, session timer, and user-adjustable thermal safety cutoffs.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
